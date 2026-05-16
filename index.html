@@ -11,8 +11,8 @@
     />
     <style>
       :root {
-        --primary: #d4a373; /* 暖陽色 */
-        --secondary: #8da399; /* 莫蘭迪綠 */
+        --primary: #d4a373;
+        --secondary: #8da399;
         --bg-soft: #fdfaf6;
         --white-shimmer: rgba(255, 255, 255, 0.9);
       }
@@ -44,17 +44,16 @@
         );
       }
 
-      /* 倒數計時器卡片設計 */
+      /* 倒數計時器 */
       .timer-card {
         background: var(--white-shimmer);
         border-radius: 12px;
-        box-shadow:
-          0 10px 25px -5px rgba(0, 0, 0, 0.05),
-          0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         display: flex;
         align-items: center;
         padding: 0.75rem 1rem;
-        min-width: 80px;
+        min-width: 100px;
+        justify-content: center;
       }
 
       .timer-line {
@@ -64,54 +63,64 @@
         margin: 0 12px;
       }
 
-      /* 手機版防跑版類別 */
-      .no-wrap {
-        white-space: nowrap;
-        word-break: keep-all;
-      }
-
       /* V-Card 設計 */
       .v-card {
-        border-left: 2px solid var(--primary);
+        border-left: 3px solid var(--primary);
         padding: 1.5rem;
         background: white;
-        border-radius: 0 16px 16px 0;
+        border-radius: 4px 16px 16px 4px;
         box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.03);
       }
 
-      /* 摺疊面板過渡 */
+      /* 摺疊面板 */
       .accordion-content {
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.3s ease-out;
+        transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .accordion-content.open {
-        max-height: 1000px;
+        max-height: 2000px;
       }
 
-      input,
-      select,
-      textarea {
-        border: 1px solid #e5e7eb;
-        transition: all 0.3s;
+      /* 精緻地圖容器設計 */
+      .map-frame {
+        background: white;
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        position: relative;
+        border: 1px solid rgba(212, 163, 115, 0.3);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
       }
-      input:focus,
-      select:focus {
-        border-color: var(--primary);
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.1);
+
+      .map-wrapper {
+        position: relative;
+        flex-grow: 1; /* 讓地圖填滿剩餘空間 */
+        min-height: 300px; /* 手機版保證基本高度 */
+        overflow: hidden;
+        border-radius: 4px;
+      }
+
+      .map-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: contrast(1.1) saturate(0.9);
       }
 
       .btn-gold {
         background-color: var(--primary);
         color: white;
-        transition:
-          transform 0.2s,
-          opacity 0.2s;
+        transition: all 0.3s;
       }
       .btn-gold:hover {
         opacity: 0.9;
-        transform: translateY(-1px);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(212, 163, 115, 0.3);
       }
     </style>
   </head>
@@ -136,14 +145,19 @@
       <div class="md:hidden text-xs text-[#d4a373]">12 . 12 . 2026</div>
     </nav>
 
+    <!-- 首頁區塊 -->
     <section
       id="home"
       class="relative h-screen w-full flex items-center justify-center overflow-hidden"
     >
       <img
-        src="https://morrisru.synology.me/images/0516/%E5%A9%9A%E7%A6%AE%E9%82%80%E8%AB%8B%E5%87%BD_%E5%9C%96%E7%89%871.jpg"
-        alt="Wedding Cover"
+        src="images/婚禮照片.jpg"
+        alt="Wedding Main Photo"
         class="absolute inset-0 w-full h-full object-cover"
+        onerror="
+          this.src =
+            'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070'
+        "
       />
       <div class="absolute inset-0 hero-overlay"></div>
       <div class="relative text-center text-white z-10 px-4">
@@ -158,15 +172,25 @@
       </div>
     </section>
 
+    <!-- 關於我們 -->
     <section id="about" class="py-24 px-6 max-w-3xl mx-auto text-center">
       <h2 class="font-eng text-3xl text-[#d4a373] mb-8">About Us</h2>
       <div class="space-y-6 text-gray-600 leading-loose">
         <p class="text-xl font-medium text-gray-800">親愛的家人朋友們：</p>
-        <p>我們即將在 2026年 12月 12 日步入人生的重要階段</p>
-        <p>誠摯地邀請在我們生命中最重要的你們來參加我們的婚禮 ♡</p>
+        <p>
+          <span class="md:inline block">我們即將在 2026年 12月 12 日</span>
+          <span class="md:inline block">步入人生的重要階段</span>
+        </p>
+        <p>
+          <span class="md:inline block"
+            >誠摯地邀請在我們生命中最重要的你們</span
+          >
+          <span class="md:inline block">來參加我們的婚禮 ♡</span>
+        </p>
       </div>
     </section>
 
+    <!-- 倒數計時 -->
     <section class="bg-[#f8f3ed] py-16 px-6">
       <div class="max-w-4xl mx-auto text-center">
         <p
@@ -175,7 +199,6 @@
           Counting Down To Our Big Day
         </p>
         <div id="countdown" class="flex flex-wrap justify-center gap-4">
-          <!-- Days -->
           <div class="timer-card">
             <span
               id="days"
@@ -187,7 +210,6 @@
               >Days<br />天</span
             >
           </div>
-          <!-- Hours -->
           <div class="timer-card">
             <span
               id="hours"
@@ -199,122 +221,169 @@
               >Hrs<br />時</span
             >
           </div>
-          <!-- Minutes -->
-          <div class="timer-card">
-            <span
-              id="minutes"
-              class="font-eng text-3xl font-semibold text-[#d4a373]"
-              >00</span
-            >
-            <div class="timer-line"></div>
-            <span class="text-xs text-gray-400 uppercase tracking-tighter"
-              >Min<br />分</span
-            >
-          </div>
-          <!-- Seconds -->
-          <div class="timer-card">
-            <span
-              id="seconds"
-              class="font-eng text-3xl font-semibold text-[#d4a373]"
-              >00</span
-            >
-            <div class="timer-line"></div>
-            <span class="text-xs text-gray-400 uppercase tracking-tighter"
-              >Sec<br />秒</span
-            >
+          <div class="flex gap-4">
+            <div class="timer-card">
+              <span
+                id="minutes"
+                class="font-eng text-3xl font-semibold text-[#d4a373]"
+                >00</span
+              >
+              <div class="timer-line"></div>
+              <span class="text-xs text-gray-400 uppercase tracking-tighter"
+                >Min<br />分</span
+              >
+            </div>
+            <div class="timer-card">
+              <span
+                id="seconds"
+                class="font-eng text-3xl font-semibold text-[#d4a373]"
+                >00</span
+              >
+              <div class="timer-line"></div>
+              <span class="text-xs text-gray-400 uppercase tracking-tighter"
+                >Sec<br />秒</span
+              >
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="details" class="py-24 px-6 max-w-4xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="font-eng text-4xl text-[#d4a373] mb-2">The Wedding</h2>
-          <p class="text-[#8da399] tracking-widest mb-8">婚禮詳情</p>
+    <!-- 婚禮詳情與地圖佈局 -->
+    <section id="details" class="py-24 px-6 max-w-5xl mx-auto">
+      <!-- 電腦版使用 items-stretch 確保左右等高 -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 md:items-stretch"
+      >
+        <!-- 文字詳情區塊 -->
+        <div class="flex flex-col space-y-6">
+          <div class="mb-4">
+            <h2 class="font-eng text-4xl text-[#d4a373] mb-2">The Wedding</h2>
+            <p class="text-[#8da399] tracking-widest">婚禮詳情</p>
+          </div>
 
-          <div class="space-y-6">
-            <div class="v-card">
-              <p
-                class="text-xs text-[#d4a373] font-bold tracking-widest uppercase mb-1"
-              >
-                Date
-              </p>
-              <p class="text-lg">2026 年 12 月 12 日（星期六）</p>
-            </div>
-            <div class="v-card">
-              <p
-                class="text-xs text-[#d4a373] font-bold tracking-widest uppercase mb-1"
-              >
-                Time
-              </p>
-              <p class="text-lg">
-                中午 12:30 開席
-                <span class="text-sm text-gray-400">（請提前到場）</span>
-              </p>
-            </div>
-            <div class="v-card">
-              <p
-                class="text-xs text-[#d4a373] font-bold tracking-widest uppercase mb-1"
-              >
-                Location
-              </p>
-              <p class="text-lg font-bold no-wrap text-[#d4a373]">
-                三好國際酒店
-              </p>
-              <p class="text-sm text-gray-500 mt-1 no-wrap">
-                640 雲林縣斗六市斗六五路 35 號
-              </p>
-            </div>
+          <div class="v-card">
+            <p
+              class="text-xs text-[#d4a373] font-bold tracking-widest uppercase mb-1"
+            >
+              Date
+            </p>
+            <p class="text-lg">2026 年 12 月 12 日（星期六）</p>
+          </div>
+          <div class="v-card">
+            <p
+              class="text-xs text-[#d4a373] font-bold tracking-widest uppercase mb-1"
+            >
+              Time
+            </p>
+            <p class="text-lg">
+              中午 12:30 開席
+              <span class="text-sm text-gray-400">（請提前到場）</span>
+            </p>
+          </div>
+          <div class="v-card flex-grow">
+            <!-- 讓 Location 卡片填滿剩餘高度或保持比例 -->
+            <p
+              class="text-xs text-[#d4a373] font-bold tracking-widest uppercase mb-1"
+            >
+              Location
+            </p>
+            <p class="text-lg font-bold text-[#d4a373]">三好國際酒店</p>
+            <p class="text-sm text-gray-500 mt-1">
+              640 雲林縣斗六市斗六五路 35 號
+            </p>
           </div>
         </div>
 
-        <div class="rounded-2xl overflow-hidden shadow-2xl rotate-2">
-          <img
-            src="https://placehold.co/600x800/d4a373/ffffff?text=Wedding+Photo"
-            alt="Wedding Detail"
-            class="w-full"
-          />
+        <!-- 質感地圖設計：電腦版會與左側文字區塊等高 -->
+        <div class="w-full">
+          <div class="map-frame">
+            <div class="map-wrapper mb-4">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.8576402456424!2d120.5369689761036!3d23.716719189404285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346eb906a58579cf%3A0x2863484f938d975a!2z5LiJ5aW95ZyL6Zqb6YWS5bqXIFN1bmhvIEludGVybmF0aW9uYWwgSG90ZWw!5e0!3m2!1szh-TW!2stw!4v1715850000000!5m2!1szh-TW!2stw"
+                allowfullscreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="px-2 py-1 text-center bg-white">
+              <p
+                class="font-eng text-xs text-[#d4a373] uppercase tracking-widest"
+              >
+                Hotel Location Map
+              </p>
+              <a
+                href="https://maps.app.goo.gl/YourMapLink"
+                target="_blank"
+                class="text-[10px] text-gray-400 underline mt-1 inline-block"
+                >在 Google Map 中開啟</a
+              >
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="mt-16 border-t border-gray-100 pt-12">
+      <!-- 交通指引：維持在最下方 -->
+      <div class="mt-16 md:mt-24 border-t border-gray-100 pt-12">
         <button
           onclick="toggleAccordion('transport-guide')"
           class="w-full flex justify-between items-center py-4 text-[#d4a373] border-b border-[#d4a373]/20"
         >
           <span class="text-xl tracking-widest">交通指引 TRANSPORTATION</span>
-          <span id="acc-icon">+</span>
+          <span id="acc-icon">−</span>
         </button>
-        <div id="transport-guide" class="accordion-content">
-          <div class="py-6 space-y-6 text-sm text-gray-600">
-            <div class="bg-white p-4 rounded-lg">
-              <h4 class="font-bold text-gray-800 mb-2">🚗 自行開車</h4>
-              <p>
+        <div id="transport-guide" class="accordion-content open">
+          <div class="py-8 grid md:grid-cols-2 gap-8 text-sm text-gray-600">
+            <div
+              class="bg-white p-6 rounded-xl shadow-sm border border-orange-50"
+            >
+              <h4
+                class="font-bold text-gray-800 mb-4 flex items-center text-base"
+              >
+                <span
+                  class="w-8 h-8 bg-[#fdfaf6] rounded-full flex items-center justify-center mr-3"
+                  >🚗</span
+                >
+                自行開車
+              </h4>
+              <p class="leading-relaxed">
                 國道三號：於
-                <span class="no-wrap">斗六交流道</span> 下，往斗六市區方向行駛約
-                10 分鐘即可到達 <span class="no-wrap">三好國際酒店</span>。
+                <span class="text-[#d4a373] font-bold">斗六交流道</span>
+                下，往斗六市區方向行駛約 10-15
+                分鐘即可抵達酒店。酒店備有專屬停車場供賓客免費停放。
               </p>
             </div>
-            <div class="bg-white p-4 rounded-lg">
-              <h4 class="font-bold text-gray-800 mb-2">🚄 大眾運輸</h4>
-              <p>
-                搭乘台鐵至 <span class="no-wrap">斗六火車站</span>，轉乘計程車約
-                5 分鐘。
-              </p>
-              <p class="mt-2">
-                搭乘高鐵至 <span class="no-wrap">雲林高鐵站</span>，轉乘計程車約
-                20 分鐘。
-              </p>
+            <div
+              class="bg-white p-6 rounded-xl shadow-sm border border-orange-50"
+            >
+              <h4
+                class="font-bold text-gray-800 mb-4 flex items-center text-base"
+              >
+                <span
+                  class="w-8 h-8 bg-[#fdfaf6] rounded-full flex items-center justify-center mr-3"
+                  >🚄</span
+                >
+                大眾運輸
+              </h4>
+              <ul class="space-y-3">
+                <li>
+                  <span class="font-bold">台鐵：</span
+                  >搭乘至「斗六火車站」，轉乘計程車約 5 分鐘。
+                </li>
+                <li>
+                  <span class="font-bold">高鐵：</span
+                  >搭乘至「雲林高鐵站」，轉乘計程車約 20 分鐘。
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- RSVP 回函 -->
     <section id="rsvp" class="py-24 bg-white px-6">
       <div
-        class="max-w-2xl mx-auto bg-[#fdfaf6] p-8 md:p-12 rounded-[2rem] shadow-sm"
+        class="max-w-2xl mx-auto bg-[#fdfaf6] p-8 md:p-12 rounded-[2.5rem] shadow-sm border border-gray-50"
       >
         <div class="text-center mb-12">
           <h2 class="text-3xl text-[#d4a373] mb-2 font-bold">出席回函</h2>
@@ -323,7 +392,6 @@
           </p>
         </div>
 
-        <!-- 使用 window.submitted 確保全域變數存取安全 -->
         <iframe
           name="hidden_iframe"
           id="hidden_iframe"
@@ -393,8 +461,8 @@
                 <option value="無法出席，祝你們幸福🎈">
                   無法出席，祝你們幸福🎈
                 </option>
-                <option value="無法出席，但會託人帶幸福給你們🧧">
-                  無法出席，但會託人帶幸福給你們🧧
+                <option value="無法出席，但會託人帶幸福給你們🧧 (有喜餅❤️)">
+                  無法出席，但會託人帶幸福給你們🧧 (有喜餅❤️)
                 </option>
               </select>
             </div>
@@ -548,11 +616,10 @@
           </div>
         </form>
 
-        <!-- 成功訊息 -->
         <div id="success-msg" class="hidden text-center py-12">
-          <div class="text-4xl mb-4">♡</div>
-          <h3 class="text-2xl text-[#d4a373] mb-2">回函已送出</h3>
-          <p class="text-gray-500">期待與您在婚禮相見！</p>
+          <div class="text-5xl mb-6">✨</div>
+          <h3 class="text-2xl text-[#d4a373] mb-3">謝謝您的回覆！</h3>
+          <p class="text-gray-500">我們已收到您的回函，期待相見。</p>
           <button
             onclick="location.reload()"
             class="mt-8 text-sm text-[#8da399] underline"
@@ -563,57 +630,58 @@
       </div>
     </section>
 
-    <footer class="py-12 bg-[#fdfaf6] text-center border-t border-gray-100">
-      <p class="font-eng text-[#d4a373] tracking-[0.3em] mb-2 uppercase">
+    <footer class="py-16 bg-[#fdfaf6] text-center">
+      <p
+        class="font-eng text-[#d4a373] tracking-[0.4em] mb-3 uppercase text-sm"
+      >
         Chang-Wei & Yu-Hui
       </p>
-      <p class="text-xs text-gray-400">© 2026 Wedding Invitation Design</p>
+      <div class="h-[1px] w-8 bg-gray-200 mx-auto mb-4"></div>
+      <p class="text-[10px] text-gray-400 tracking-widest">
+        © 2026 FOREVER BEGINS TODAY
+      </p>
     </footer>
 
     <script>
-      // 確保變數在頁面載入時即定義，避免 ReferenceError
       window.submitted = false;
 
       function updateCountdown() {
         const weddingDate = new Date("December 12, 2026 12:30:00").getTime();
         const now = new Date().getTime();
         const gap = weddingDate - now;
+        if (gap < 0) return;
 
-        const second = 1000;
-        const minute = second * 60;
-        const hour = minute * 60;
-        const day = hour * 24;
+        const second = 1000,
+          minute = second * 60,
+          hour = minute * 60,
+          day = hour * 24;
+        const d = Math.floor(gap / day),
+          h = Math.floor((gap % day) / hour),
+          m = Math.floor((gap % hour) / minute),
+          s = Math.floor((gap % minute) / second);
 
-        const d = Math.floor(gap / day);
-        const h = Math.floor((gap % day) / hour);
-        const m = Math.floor((gap % hour) / minute);
-        const s = Math.floor((gap % minute) / second);
-
-        document.getElementById("days").innerText = d < 10 ? "0" + d : d;
-        document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
-        document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
-        document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+        document.getElementById("days").innerText = d
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("hours").innerText = h
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("minutes").innerText = m
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("seconds").innerText = s
+          .toString()
+          .padStart(2, "0");
       }
       setInterval(updateCountdown, 1000);
       updateCountdown();
 
       function toggleFormLogic() {
-        const attendance = document.getElementById("attendance").value;
-        const conditionalFields = document.getElementById("conditional-fields");
-
-        if (attendance === "一定出席！") {
-          conditionalFields.classList.remove("hidden");
-          // 為必填項添加 required
-          conditionalFields.querySelectorAll("select, input").forEach((el) => {
-            if (el.name !== "entry.598387044")
-              el.setAttribute("required", "true");
-          });
-        } else {
-          conditionalFields.classList.add("hidden");
-          conditionalFields
-            .querySelectorAll("select, input")
-            .forEach((el) => el.removeAttribute("required"));
-        }
+        const val = document.getElementById("attendance").value;
+        const fields = document.getElementById("conditional-fields");
+        val === "一定出席！"
+          ? fields.classList.remove("hidden")
+          : fields.classList.add("hidden");
       }
 
       function toggleAccordion(id) {
