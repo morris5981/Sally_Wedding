@@ -302,7 +302,7 @@
               Time
             </p>
             <p class="text-lg">
-              中午 12:30 開席
+              中午 12:00 開席
               <span class="text-sm text-gray-400">（請提前到場）</span>
             </p>
           </div>
@@ -683,7 +683,7 @@
 
       // 倒數計時邏輯
       function updateCountdown() {
-        const weddingDate = new Date("December 12, 2026 12:30:00").getTime();
+        const weddingDate = new Date("December 12, 2026 12:00:00").getTime();
         const now = new Date().getTime();
         const gap = weddingDate - now;
         if (gap < 0) return;
