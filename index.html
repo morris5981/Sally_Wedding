@@ -574,6 +574,7 @@
                 name="entry.1070609127"
                 class="w-full p-3 rounded-lg bg-white"
               >
+                <option value="" disabled selected>請選擇喜帖形式</option>
                 <option value="電子喜帖">電子喜帖</option>
                 <option value="紙本喜帖">紙本喜帖</option>
               </select>
@@ -630,6 +631,16 @@
       </div>
     </section>
 
+    <!-- 隱藏的背景音樂播放器 -->
+    <audio
+      id="bg-music"
+      src="musics/A Thousand Years.mp3"
+      loop
+      preload="auto"
+      class="hidden"
+    ></audio>
+
+    <!-- 頁尾 -->
     <footer class="py-16 bg-[#fdfaf6] text-center">
       <p
         class="font-eng text-[#d4a373] tracking-[0.4em] mb-3 uppercase text-sm"
@@ -645,6 +656,7 @@
     <script>
       window.submitted = false;
 
+      // 倒數計時邏輯
       function updateCountdown() {
         const weddingDate = new Date("December 12, 2026 12:30:00").getTime();
         const now = new Date().getTime();
@@ -676,6 +688,7 @@
       setInterval(updateCountdown, 1000);
       updateCountdown();
 
+      // 表單顯示與摺疊邏輯
       function toggleFormLogic() {
         const val = document.getElementById("attendance").value;
         const fields = document.getElementById("conditional-fields");
@@ -684,6 +697,7 @@
           : fields.classList.add("hidden");
       }
 
+      // 交通資訊手風琴
       function toggleAccordion(id) {
         const content = document.getElementById(id);
         const icon = document.getElementById("acc-icon");
@@ -691,6 +705,7 @@
         icon.innerText = content.classList.contains("open") ? "−" : "+";
       }
 
+      // 成功提交
       function showSuccess() {
         document.getElementById("weddingForm").classList.add("hidden");
         document.getElementById("success-msg").classList.remove("hidden");
@@ -699,6 +714,55 @@
           behavior: "smooth",
         });
       }
+
+      // ==========================================
+      // 背景音樂自動播放與音量控制邏輯
+      // ==========================================
+      const bgMusic = document.getElementById("bg-music");
+      let musicStarted = false;
+
+      // 💡 調整音量大小處：
+      // 數值介於 0.0 (無聲) 到 1.0 (最大聲) 之間。
+      // 例如：0.1 代表 10% 音量、0.3 代表 30% 音量、0.5 代表 50% 音量。
+      if (bgMusic) {
+        bgMusic.volume = 0.4; // 您可以在這裡自由調整預設音量
+      }
+
+      // 嘗試播放音樂
+      function playMusic() {
+        if (!musicStarted && bgMusic) {
+          bgMusic
+            .play()
+            .then(() => {
+              musicStarted = true;
+              removeInteractionListeners();
+            })
+            .catch(() => {
+              // 瀏覽器安全限制暫時阻擋播放，靜默等待下一步互動
+            });
+        }
+      }
+
+      // 移除所有互動事件監聽器
+      function removeInteractionListeners() {
+        document.removeEventListener("click", playMusic);
+        document.removeEventListener("touchstart", playMusic);
+        document.removeEventListener("scroll", playMusic);
+        document.removeEventListener("mousedown", playMusic);
+        document.removeEventListener("keydown", playMusic);
+      }
+
+      // 頁面加載完成時立即嘗試播放
+      window.addEventListener("load", () => {
+        playMusic();
+
+        // 註冊多種互動事件：只要點擊、觸控、滾動、滑鼠按下或按鍵盤，就立刻啟動播放
+        document.addEventListener("click", playMusic);
+        document.addEventListener("touchstart", playMusic);
+        document.addEventListener("scroll", playMusic);
+        document.addEventListener("mousedown", playMusic);
+        document.addEventListener("keydown", playMusic);
+      });
     </script>
   </body>
 </html>
