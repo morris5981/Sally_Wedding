@@ -170,6 +170,31 @@
         <div class="h-[1px] w-12 bg-white mx-auto mb-6"></div>
         <p class="text-lg md:text-xl tracking-widest">2026 . 12 . 12</p>
       </div>
+
+      <!-- 向下滑動提示 (手機版專屬) -->
+      <div
+        class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 text-white/80 animate-bounce md:hidden pointer-events-none"
+      >
+        <span
+          class="text-[9px] tracking-[0.4em] uppercase font-eng opacity-70 mb-1"
+          >Scroll Down</span
+        >
+        <span class="text-xs tracking-[0.25em] font-light mb-2">往下探索</span>
+        <svg
+          class="w-4 h-4 text-white/50"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+          ></path>
+        </svg>
+      </div>
     </section>
 
     <!-- 關於我們 -->
@@ -762,6 +787,25 @@
         document.addEventListener("scroll", playMusic);
         document.addEventListener("mousedown", playMusic);
         document.addEventListener("keydown", playMusic);
+      });
+
+      // =======================================================
+      // 💡 解決 iPhone 背景播放問題 (Page Visibility API)
+      // =======================================================
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          // 當網頁被「滑掉」至後台、鎖屏或切換分頁時，立即暫停音樂
+          if (musicStarted && bgMusic && !bgMusic.paused) {
+            bgMusic.pause();
+          }
+        } else {
+          // 當使用者重新返回此網頁時，自動恢復播放
+          if (musicStarted && bgMusic && bgMusic.paused) {
+            bgMusic.play().catch(() => {
+              // 避免重回頁面時，部分瀏覽器的再次安全阻擋
+            });
+          }
+        }
       });
     </script>
   </body>
