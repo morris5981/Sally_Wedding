@@ -150,15 +150,29 @@
       id="home"
       class="relative h-screen w-full flex items-center justify-center overflow-hidden"
     >
+      <!-- 💡 這裡加上了 object-center 確保圖片正中心始終對齊網頁中心 -->
+      <!-- 📱 手機版照片 (當螢幕寬度小於 768px 時顯示) -->
       <img
         src="images/婚禮照片2.jpg"
-        alt="Wedding Main Photo"
-        class="absolute inset-0 w-full h-full object-cover"
+        alt="Wedding Main Photo Mobile"
+        class="absolute inset-0 w-full h-full object-cover object-center md:hidden"
         onerror="
           this.src =
             'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070'
         "
       />
+
+      <!-- 💻 電腦版照片 (當螢幕寬度大於等於 768px 時顯示) -->
+      <img
+        src="images/婚禮照片3.png"
+        alt="Wedding Main Photo Desktop"
+        class="absolute inset-0 w-full h-full object-cover object-center hidden md:block"
+        onerror="
+          this.src =
+            'https://images.unsplash.com/photo-1519225495810-7517c50000e3?q=80&w=2070'
+        "
+      />
+
       <div class="absolute inset-0 hero-overlay"></div>
       <div class="relative text-center text-white z-10 px-4">
         <p class="font-eng italic text-xl md:text-2xl mb-4 tracking-widest">
@@ -517,7 +531,7 @@
                 </select>
               </div>
 
-              <!-- 貼心提醒：住宿需求（新增在祝福話語區塊上方，獨立於區塊之外） -->
+              <!-- 貼心提醒：人數出席限制 -->
               <div
                 class="bg-[#fcf8f2] border border-[#d4a373]/30 rounded-xl p-4 text-sm text-[#bc854d] leading-relaxed flex items-start gap-2.5 shadow-sm"
               >
@@ -627,7 +641,7 @@
               />
             </div>
 
-            <!-- 貼心提醒：住宿需求（新增在祝福話語區塊上方，獨立於區塊之外） -->
+            <!-- 貼心提醒：住宿需求 -->
             <div
               class="bg-[#fcf8f2] border border-[#d4a373]/30 rounded-xl p-4 text-sm text-[#bc854d] leading-relaxed flex items-start gap-2.5 shadow-sm"
             >
@@ -766,10 +780,8 @@
       let musicStarted = false;
 
       // 💡 調整音量大小處：
-      // 數值介於 0.0 (無聲) 到 1.0 (最大聲) 之間。
-      // 例如：0.1 代表 10% 音量、0.3 代表 30% 音量、0.5 代表 50% 音量。
       if (bgMusic) {
-        bgMusic.volume = 0.4; // 您可以在這裡自由調整預設音量
+        bgMusic.volume = 0.4; // 預設音量
       }
 
       // 嘗試播放音樂
