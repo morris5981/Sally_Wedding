@@ -155,9 +155,10 @@
     </nav>
 
     <!-- 首頁區塊 -->
+    <!-- 💡 修改處：將原本的手機版置中 items-center 改為 items-start 靠上，電腦版維持 md:items-center 置中 -->
     <section
       id="home"
-      class="relative h-screen w-full flex items-center justify-center overflow-hidden"
+      class="relative h-screen w-full flex items-start md:items-center justify-center overflow-hidden"
     >
       <!-- 💡 這裡加上了 object-center 確保圖片正中心始終對齊網頁中心 -->
       <!-- 📱 手機版照片 (當螢幕寬度小於 768px 時顯示) -->
@@ -183,7 +184,9 @@
       />
 
       <div class="absolute inset-0 hero-overlay"></div>
-      <div class="relative text-center text-white z-10 px-4">
+
+      <!-- 💡 修改處：手機版加上 pt-32 (上方內距) 避免貼齊最上方或被導覽列遮擋；電腦版恢復為 md:pt-0 -->
+      <div class="relative text-center text-white z-10 px-4 pt-32 md:pt-0">
         <p class="font-eng italic text-xl md:text-2xl mb-4 tracking-widest">
           Wedding Invitation
         </p>
@@ -394,7 +397,7 @@
                 class="font-bold text-gray-800 mb-4 flex items-center text-base"
               >
                 <span
-                  class="w-8 h-8 bg-[#fdfaf6] rounded-full flex items-center justify-center mr-3"
+                  class="font-emoji w-8 h-8 bg-[#fdfaf6] rounded-full flex items-center justify-center mr-3"
                   >🚗</span
                 >
                 自行開車
@@ -413,7 +416,7 @@
                 class="font-bold text-gray-800 mb-4 flex items-center text-base"
               >
                 <span
-                  class="w-8 h-8 bg-[#fdfaf6] rounded-full flex items-center justify-center mr-3"
+                  class="font-emoji w-8 h-8 bg-[#fdfaf6] rounded-full flex items-center justify-center mr-3"
                   >🚄</span
                 >
                 大眾運輸
