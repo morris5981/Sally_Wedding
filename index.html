@@ -93,6 +93,13 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        transition: all 0.3s ease;
+      }
+
+      /* 讓整個地圖外框在滑鼠懸停時有微幅縮放與投影效果 */
+      .map-frame:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 50px rgba(212, 163, 115, 0.15);
       }
 
       .map-wrapper {
@@ -110,6 +117,8 @@
         width: 100%;
         height: 100%;
         filter: contrast(1.1) saturate(0.9);
+        /* 💡 加上 pointer-events: none 確保點擊地圖時會穿透到外層的 <a> 連結，觸發跳轉 */
+        pointer-events: none;
       }
 
       .btn-gold {
@@ -153,7 +162,7 @@
       <!-- 💡 這裡加上了 object-center 確保圖片正中心始終對齊網頁中心 -->
       <!-- 📱 手機版照片 (當螢幕寬度小於 768px 時顯示) -->
       <img
-        src="images/婚禮照片2.jpg"
+        src="images/婚禮照片4.jpg"
         alt="Wedding Main Photo Mobile"
         class="absolute inset-0 w-full h-full object-cover object-center md:hidden"
         onerror="
@@ -164,7 +173,7 @@
 
       <!-- 💻 電腦版照片 (當螢幕寬度大於等於 768px 時顯示) -->
       <img
-        src="images/婚禮照片3.png"
+        src="images/婚禮照片4.jpg"
         alt="Wedding Main Photo Desktop"
         class="absolute inset-0 w-full h-full object-cover object-center hidden md:block"
         onerror="
@@ -336,28 +345,34 @@
 
         <!-- 質感地圖設計：電腦版會與左側文字區塊等高 -->
         <div class="w-full">
-          <div class="map-frame">
-            <div class="map-wrapper mb-4">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.8576402456424!2d120.5369689761036!3d23.716719189404285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346eb906a58579cf%3A0x2863484f938d975a!2z5LiJ5aW95ZyL6Zqb6YWS5bqXIFN1bmhvIEludGVybmF0aW9uYWwgSG90ZWw!5e0!3m2!1szh-TW!2stw!4v1715850000000!5m2!1szh-TW!2stw"
-                allowfullscreen=""
-                loading="lazy"
-              ></iframe>
+          <!-- 💡 點擊整個卡片都會跳轉到 Google Map -->
+          <a
+            href="https://maps.app.goo.gl/eN5iieMKMGwWJYs18"
+            target="_blank"
+            class="block h-full cursor-pointer"
+            title="點擊開啟 Google Map 導航"
+          >
+            <div class="map-frame">
+              <div class="map-wrapper mb-4">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.8576402456424!2d120.5369689761036!3d23.716719189404285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346eb906a58579cf%3A0x2863484f938d975a!2z5LiJ5aW95ZyL6Zqb6YWS5bqXIFN1bmhvIEludGVybmF0aW9uYWwgSG90ZWw!5e0!3m2!1szh-TW!2stw!4v1715850000000!5m2!1szh-TW!2stw"
+                  allowfullscreen=""
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <div class="px-2 py-1 text-center bg-white">
+                <p
+                  class="font-eng text-xs text-[#d4a373] uppercase tracking-widest"
+                >
+                  Hotel Location Map
+                </p>
+                <span
+                  class="text-[10px] text-gray-400 underline mt-1 inline-block hover:text-[#d4a373] transition"
+                  >在 Google Map 中開啟 (點擊地圖亦可跳轉)</span
+                >
+              </div>
             </div>
-            <div class="px-2 py-1 text-center bg-white">
-              <p
-                class="font-eng text-xs text-[#d4a373] uppercase tracking-widest"
-              >
-                Hotel Location Map
-              </p>
-              <a
-                href="https://maps.app.goo.gl/YourMapLink"
-                target="_blank"
-                class="text-[10px] text-gray-400 underline mt-1 inline-block"
-                >在 Google Map 中開啟</a
-              >
-            </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -388,7 +403,7 @@
                 國道三號：於
                 <span class="text-[#d4a373] font-bold">斗六交流道</span>
                 下，往斗六市區方向行駛約 10-15
-                分鐘即可抵達酒店。酒店備有專屬停車場供賓客免費停放。
+                分鐘即可抵達酒店。宴會廳備有專屬停車場供賓客停放。
               </p>
             </div>
             <div
@@ -580,17 +595,17 @@
                   name="entry.1768852181"
                   class="w-full p-3 rounded-lg bg-white"
                 >
-                  <option value="可自行前往飯店" class="no-wrap">
-                    可自行前往飯店
+                  <option value="可自行前往宴會廳" class="no-wrap">
+                    可自行前往宴會廳
                   </option>
-                  <option value="雲林高鐵到飯店接駁" class="no-wrap">
-                    雲林高鐵到飯店接駁
+                  <option value="雲林高鐵到宴會廳接駁" class="no-wrap">
+                    雲林高鐵到宴會廳接駁
                   </option>
-                  <option value="斗六火車到飯店接駁" class="no-wrap">
-                    斗六火車到飯店接駁
+                  <option value="斗六火車到宴會廳接駁" class="no-wrap">
+                    斗六火車到宴會廳接駁
                   </option>
-                  <option value="二崙到飯店接駁" class="no-wrap">
-                    二崙到飯店接駁
+                  <option value="二崙到宴會廳接駁" class="no-wrap">
+                    二崙到宴會廳接駁
                   </option>
                   <option value="還不確定" class="no-wrap">還不確定</option>
                 </select>
