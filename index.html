@@ -155,10 +155,10 @@
     </nav>
 
     <!-- 首頁區塊 -->
-    <!-- 💡 修改處：將原本的手機版置中 items-center 改為 items-start 靠上，電腦版維持 md:items-center 置中 -->
+    <!-- 💡 修改處：手機版靠上置中（items-start justify-center），電腦版調整為靠右上（md:justify-end md:items-start） -->
     <section
       id="home"
-      class="relative h-screen w-full flex items-start md:items-center justify-center overflow-hidden"
+      class="relative h-screen w-full flex items-start justify-center md:justify-end md:items-start overflow-hidden"
     >
       <!-- 💡 這裡加上了 object-center 確保圖片正中心始終對齊網頁中心 -->
       <!-- 📱 手機版照片 (當螢幕寬度小於 768px 時顯示) -->
@@ -174,7 +174,7 @@
 
       <!-- 💻 電腦版照片 (當螢幕寬度大於等於 768px 時顯示) -->
       <img
-        src="images/婚禮照片4.jpg"
+        src="images/婚禮照片5.png"
         alt="Wedding Main Photo Desktop"
         class="absolute inset-0 w-full h-full object-cover object-center hidden md:block"
         onerror="
@@ -185,15 +185,20 @@
 
       <div class="absolute inset-0 hero-overlay"></div>
 
-      <!-- 💡 修改處：手機版加上 pt-32 (上方內距) 避免貼齊最上方或被導覽列遮擋；電腦版恢復為 md:pt-0 -->
-      <div class="relative text-center text-white z-10 px-4 pt-32 md:pt-0">
+      <!-- 💡 修改處：手機版置中靠上（pt-32），電腦版改為靠右（md:text-right）並定位在右上角（md:pt-48 md:pr-24） -->
+      <div
+        class="relative text-center md:text-right text-white z-10 px-4 pt-32 md:pt-48 md:pr-24"
+      >
         <p class="font-eng italic text-xl md:text-2xl mb-4 tracking-widest">
           Wedding Invitation
         </p>
         <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
           昶瑋 <span class="text-2xl font-light">&</span> 俞蕙
         </h1>
-        <div class="h-[1px] w-12 bg-white mx-auto mb-6"></div>
+        <!-- 💡 修改處：分隔線在電腦版同步靠右對齊（md:mr-0 md:ml-auto） -->
+        <div
+          class="h-[1px] w-12 bg-white mx-auto md:mr-0 md:ml-auto mb-6"
+        ></div>
         <p class="text-lg md:text-xl tracking-widest">2026 . 12 . 12</p>
       </div>
 
@@ -327,10 +332,8 @@
             >
               Time
             </p>
-            <p class="text-lg">
-              中午 12:00 開席
-              <span class="text-sm text-gray-400">（請提前到場）</span>
-            </p>
+            <p class="text-lg">中午 12:00 賓客入席</p>
+            <p class="text-lg">中午 12:30 婚禮饗宴</p>
           </div>
           <div class="v-card flex-grow">
             <!-- 讓 Location 卡片填滿剩餘高度或保持比例 -->
@@ -402,12 +405,35 @@
                 >
                 自行開車
               </h4>
-              <p class="leading-relaxed">
-                國道三號：於
-                <span class="text-[#d4a373] font-bold">斗六交流道</span>
-                下，往斗六市區方向行駛約 10-15
-                分鐘即可抵達酒店。宴會廳備有專屬停車場供賓客停放。
-              </p>
+              <ul class="space-y-3">
+                <li>
+                  <span class="font-bold"> 國道一號：</span>
+                  <br />
+                  <span"
+                    >北上→下斗南交流道，台一線、西平路→三好國際酒店。</span
+                  >
+                  <br />
+                  <span"
+                    >南下→下西螺交流道，154縣道、台一線→三好國際酒店。</span
+                  >
+                </li>
+                <li>
+                  <span class="font-bold"> 國道三號： </span>
+                  <br />
+                  <span"
+                    >北上→下古坑交流道，台三線、明德路橋→三好國際酒店。</span
+                  >
+                  <br />
+                  <span"
+                    >南下→下虎尾交流道，西平路→三好國際酒店。</span
+                  >
+                </li>
+                <li>
+                  <span class="font-bold"
+                    >宴會廳備有專屬停車場供賓客停放。</span
+                  >
+                </li>
+              </ul>
             </div>
             <div
               class="bg-white p-6 rounded-xl shadow-sm border border-orange-50"
@@ -648,7 +674,8 @@
               <div>
                 <label
                   class="block text-xs font-bold text-[#8da399] tracking-widest mb-2"
-                  >喜帖寄送地 ADDRESS / EMAIL (電子填信箱📪，紙本填地址)</label
+                  >喜帖寄送地 ADDRESS / EMAIL
+                  (電子喜帖填信箱，紙本喜帖填地址)</label
                 >
                 <input
                   type="text"
